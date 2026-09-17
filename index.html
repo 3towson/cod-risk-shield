@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตรวจก่อนส่ง — เช็คความเสี่ยงลูกค้า COD ป้องกันพัสดุตีกลับ</title>
+<meta name="description" content="ระบบ AI ตรวจสอบความเสี่ยงลูกค้า COD จากเครือข่ายร้านค้าออนไลน์ ป้องกันพัสดุตีกลับ และร่วมรายงานประวัติปฏิเสธรับสินค้า">
+<meta name="theme-color" content="#142640">
+
+<!-- Favicon: 🛡️ Shield SVG Icon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+
+<!-- Open Graph / Social Media Preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ตรวจก่อนส่ง — เช็คความเสี่ยงลูกค้า COD ป้องกันพัสดุตีกลับ">
+<meta property="og:description" content="ช่วยร้านค้าออนไลน์เช็คประวัติตีกลับจากแชทและออเดอร์ พร้อมระบบ AI ช่วยกรอกบันทึกรายงานพัสดุถูกปฏิเสธเข้าเครือข่าย">
+<meta property="og:site_name" content="COD Risk Shield">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ตรวจก่อนส่ง — เช็คความเสี่ยงลูกค้า COD">
+<meta name="twitter:description" content="ระบบ AI ตรวจสอบความเสี่ยงลูกค้า COD จากเครือข่ายร้านค้าออนไลน์ ป้องกันพัสดุตีกลับ">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="header-inner">
+    <div class="eyebrow-row">
+      <span class="badge-demo"><span class="dot"></span>เดโมสด: ระบบเครือข่ายความเสี่ยงลูกค้า COD</span>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" title="สลับโหมดมืด/สว่าง">🌓 ธีม</button>
+      </div>
+    </div>
+    <h1>ตรวจก่อนส่ง — เช็คความเสี่ยงลูกค้า COD</h1>
+    <p>ช่วยร้านค้าออนไลน์เช็คประวัติตีกลับจากแชทและออเดอร์ พร้อมระบบ AI ช่วยกรอกบันทึกรายงานพัสดุถูกปฏิเสธเข้าเครือข่าย</p>
+  </div>
+</header>
+
+<div class="metrics-strip">
+  <div class="metrics-inner">
+    <div class="metric-item">🏪 ร้านในเครือข่าย: <span class="metric-val" id="storeCount">2,480+ ร้าน</span></div>
+    <div class="metric-item">🛡️ ป้องกันตีกลับแล้ว: <span class="metric-val" id="shieldCount">18,340 ชิ้น</span></div>
+    <div class="metric-item">💰 เซฟค่าส่งสะสม: <span class="metric-val">~฿917,000</span></div>
+  </div>
+</div>
+
+<main>
+  <!-- ส่วนที่ 1: เช็คออเดอร์ -->
+  <div class="slip">
+    <div class="slip-header">
+      <p class="slip-label">📋 วางข้อความออเดอร์ (เช็คทีละหลายรายการได้)</p>
+      <button class="toggle-btn" id="maskToggle" type="button">🔒 ซ่อนเบอร์ (PDPA): ปิด</button>
+    </div>
+
+    <div class="preset-row">
+      <span style="font-size:12px; color:var(--ink-soft); align-self:center; font-family:var(--font-mono);">ลองชุดตัวอย่าง:</span>
+      <button class="preset-chip" type="button" data-preset="multi">⚡ 3 ออเดอร์ (เสี่ยงสูง/เฝ้าระวัง/ปลอดภัย)</button>
+      <button class="preset-chip" type="button" data-preset="chat">💬 แชทลูกค้าทั่วไป</button>
+    </div>
+
+    <textarea id="orderInput" placeholder="ตัวอย่าง:
+คุณสมชาย ใจดี 0891234567 สั่ง Shopee ยอด 850
+นางสาวปรียา 086-555-7788 สั่ง LINE ยอด 350
+นายวิชัย มั่นคง 099-222-3344 สั่ง Facebook ยอด 490"></textarea>
+
+    <div class="action-row">
+      <button class="btn-primary" id="checkBtn">🔍 ตรวจสอบความเสี่ยงด้วย AI</button>
+      <button class="btn-ghost" id="clearOrderBtn" type="button">ล้างข้อความ</button>
+    </div>
+    <p class="status-line" id="statusLine"></p>
+  </div>
+
+  <section class="results" id="results"></section>
+  <div class="empty-state" id="emptyState">
+    ✨ ผลการวิเคราะห์และคำแนะนำการแพ็กสินค้าจะปรากฏที่นี่หลังกดตรวจสอบ
+  </div>
+
+  <!-- เส้นคั่น -->
+  <div class="divider">เครือข่ายร่วมรายงานความเสี่ยง (Crowdsourced Blacklist)</div>
+
+  <!-- ส่วนที่ 2: รายงานลูกค้าปฏิเสธรับสินค้า -->
+  <div class="slip">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+      <span class="network-chip" id="networkChip" style="margin-bottom:0;">📊 เครือข่ายสะสม 2 เบอร์</span>
+      <button class="toggle-btn" id="resetDbBtn" type="button" title="รีเซ็ตฐานข้อมูลตัวอย่างกลับเป็นค่าเริ่มต้น" style="font-size:11px; opacity:0.8;">↺ คืนค่าตัวอย่างเริ่มต้น</button>
+    </div>
+    <p class="slip-label" style="margin-bottom:12px;">🚨 รายงานลูกค้าที่ปฏิเสธรับสินค้า / ตีกลับ</p>
+
+    <!-- AI ช่วยกรอก -->
+    <div class="assist-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-family:var(--font-mono); font-size:11.5px; font-weight:700; color:var(--ink-soft);">
+          🤖 ผู้ช่วย AI ช่วยอ่านแชทและกรอกฟอร์มอัตโนมัติ:
+        </span>
+      </div>
+
+      <div class="preset-row" style="margin-bottom:8px;">
+        <span style="font-size:11px; color:var(--ink-soft); align-self:center; font-family:var(--font-mono);">คลิกตัวอย่างแชทเดโม:</span>
+        <button class="preset-chip" type="button" data-chat-preset="shopee">📦 Shopee (ปิดเครื่องหนี 650฿)</button>
+        <button class="preset-chip" type="button" data-chat-preset="tiktok">📱 TikTok (สั่งเล่น ไม่รับ 1,290฿)</button>
+        <button class="preset-chip" type="button" data-chat-preset="line">💬 LINE (ปฏิเสธหน้าบ้าน 420฿)</button>
+      </div>
+
+      <div class="assist-row">
+        <textarea id="assistInput" placeholder="วางข้อความแชทที่มี ชื่อ เบอร์โทร ยอดเงิน หรือเหตุผล เช่น 'ลูกค้าคุณปรียา เบอร์ 086-555-7788 ยอด 890 บาท จาก TikTok ขนส่งโทรแล้วตัดสาย ติดต่อไม่ได้'"></textarea>
+        <button class="btn-assist" id="assistBtn" type="button">✨ AI ช่วยกรอก</button>
+      </div>
+
+      <div class="ai-summary-row" id="aiSummaryRow">
+        <!-- ชิปแสดงผลการสกัดของ AI -->
+      </div>
+    </div>
+
+    <!-- ฟอร์มรายงาน -->
+    <div class="form-fields">
+      <div>
+        <label for="reportName">ชื่อลูกค้า <span style="font-size:10px; color:var(--ink-soft); font-weight:normal;">(ระบบตัดคำนำหน้าให้)</span></label>
+        <input class="field-input" id="reportName" type="text" placeholder="เช่น สมชาย ใจดี">
+      </div>
+      <div>
+        <label for="reportPhone">เบอร์โทรศัพท์ <span style="font-size:10px; color:var(--ink-soft); font-weight:normal;">(10 หลัก)</span></label>
+        <input class="field-input" id="reportPhone" type="tel" placeholder="เช่น 0812345678 หรือ 081-234-5678" maxlength="14">
+      </div>
+      <div>
+        <label for="reportValue">มูลค่าสินค้า (บาท) <span style="font-size:10px; color:var(--ink-soft); font-weight:normal;">(AI สกัดยอดให้)</span></label>
+        <input class="field-input" id="reportValue" type="number" min="0" placeholder="เช่น 590">
+      </div>
+      <div>
+        <label for="reportPlatform">แพลตฟอร์มที่สั่งซื้อ</label>
+        <select class="field-input" id="reportPlatform">
+          <option value="Shopee">Shopee</option>
+          <option value="Lazada">Lazada</option>
+          <option value="TikTok Shop">TikTok Shop</option>
+          <option value="Facebook">Facebook</option>
+          <option value="LINE OA">LINE OA</option>
+          <option value="เว็บไซต์ร้าน">เว็บไซต์ร้าน</option>
+          <option value="__other__">อื่นๆ (พิมพ์เอง)</option>
+        </select>
+      </div>
+      <div class="full" id="platformOtherWrap" style="display:none;">
+        <label for="reportPlatformOther">ระบุชื่อแพลตฟอร์ม</label>
+        <input class="field-input" id="reportPlatformOther" type="text" placeholder="เช่น Instagram, หน้าร้าน">
+      </div>
+      <div class="full">
+        <label for="reportReason">สาเหตุที่พัสดุตีกลับ / ปฏิเสธ</label>
+        <select class="field-input" id="reportReason">
+          <option value="ติดต่อไม่ได้ / ปิดเครื่องหนี">ติดต่อไม่ได้ / ปิดเครื่องหนีขนส่ง</option>
+          <option value="ปฏิเสธรับหน้าบ้าน / ไม่มีเงินจ่าย">ปฏิเสธรับหน้าบ้าน / อ้างไม่มีเงินจ่าย</option>
+          <option value="สั่งเล่น / อ้างไม่ได้สั่ง">สั่งเล่น / อ้างว่าไม่ได้สั่ง</option>
+          <option value="ขอยกเลิกสินค้ากะทันหัน">ขอยกเลิกสินค้าหลังส่งออกไปแล้ว</option>
+          <option value="ที่อยู่ไม่ถูกต้อง / ไม่มีคนอยู่">ที่อยู่ไม่ชัดเจน / ไม่มีคนรับสินค้า</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" id="reportBtn">💾 บันทึกรายงานเข้าระบบเครือข่าย</button>
+      <button class="btn-ghost" id="resetFormBtn" type="button">ล้างฟอร์ม</button>
+    </div>
+    <p class="status-line" id="reportStatus"></p>
+    <div id="reportConfirm"></div>
+  </div>
+
+  <div class="pdpa-strip">
+    <span>🛡️ มาตรฐาน PDPA: จัดเก็บเฉพาะเบอร์โทรและสถิติประวัติความเสี่ยงเพื่อความปลอดภัยของข้อมูล</span>
+  </div>
+
+  <p class="footnote">
+    เดโมระบบเครือข่ายความเสี่ยงลูกค้า COD สำหรับการแข่งขัน Hackathon · ข้อมูลในระบบจำลองการทำงานของ Crowdsourced Risk Database ที่ร้านค้าแชร์ร่วมกันเพื่อลดต้นทุนพัสดุตีกลับ
+  </p>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
