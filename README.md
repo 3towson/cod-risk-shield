@@ -3,6 +3,11 @@
 
 โครงการส่งเข้าแข่งขัน: **NTT DATA Digital Innovation Challenge**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-เข้าใช้งานได้ทันที-2563eb?style=for-the-badge&logo=googlechrome&logoColor=white)](https://3towson.github.io/cod-risk-shield/)
+
+🌐 **Live Demo Website:** [https://3towson.github.io/cod-risk-shield/](https://3towson.github.io/cod-risk-shield/)  
+📂 **GitHub Repository:** [https://github.com/3towson/cod-risk-shield](https://github.com/3towson/cod-risk-shield)
+
 ---
 
 ## ปัญหาที่พบ (Pain Point)
