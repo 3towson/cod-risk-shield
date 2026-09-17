@@ -7,8 +7,8 @@
 <meta name="description" content="ระบบ AI ตรวจสอบความเสี่ยงลูกค้า COD จากเครือข่ายร้านค้าออนไลน์ ป้องกันพัสดุตีกลับ และร่วมรายงานประวัติปฏิเสธรับสินค้า">
 <meta name="theme-color" content="#142640">
 
-<!-- Favicon: 🛡️ Shield SVG Icon -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+<!-- Favicon: Vector Shield SVG Icon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231D3557'><path d='M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z'/></svg>">
 
 <!-- Open Graph / Social Media Preview -->
 <meta property="og:type" content="website">
@@ -33,7 +33,7 @@
     <div class="eyebrow-row">
       <span class="badge-demo"><span class="dot"></span>เดโมสด: ระบบเครือข่ายความเสี่ยงลูกค้า COD</span>
       <div class="header-actions">
-        <button class="theme-toggle" id="themeToggle" type="button" title="สลับโหมดมืด/สว่าง">🌓 ธีม</button>
+        <button class="theme-toggle" id="themeToggle" type="button" title="สลับโหมดมืด/สว่าง">ธีม</button>
       </div>
     </div>
     <h1>ตรวจก่อนส่ง — เช็คความเสี่ยงลูกค้า COD</h1>
@@ -43,9 +43,9 @@
 
 <div class="metrics-strip">
   <div class="metrics-inner">
-    <div class="metric-item">🏪 ร้านในเครือข่าย: <span class="metric-val" id="storeCount">2,480+ ร้าน</span></div>
-    <div class="metric-item">🛡️ ป้องกันตีกลับแล้ว: <span class="metric-val" id="shieldCount">18,340 ชิ้น</span></div>
-    <div class="metric-item">💰 เซฟค่าส่งสะสม: <span class="metric-val">~฿917,000</span></div>
+    <div class="metric-item">ร้านในเครือข่าย: <span class="metric-val" id="storeCount">2,480+ ร้าน</span></div>
+    <div class="metric-item">ป้องกันตีกลับแล้ว: <span class="metric-val" id="shieldCount">18,340 ชิ้น</span></div>
+    <div class="metric-item">เซฟค่าส่งสะสม: <span class="metric-val">~฿917,000</span></div>
   </div>
 </div>
 
@@ -53,14 +53,13 @@
   <!-- ส่วนที่ 1: เช็คออเดอร์ -->
   <div class="slip">
     <div class="slip-header">
-      <p class="slip-label">📋 วางข้อความออเดอร์ (เช็คทีละหลายรายการได้)</p>
-      <button class="toggle-btn" id="maskToggle" type="button">🔒 ซ่อนเบอร์ (PDPA): ปิด</button>
+      <p class="slip-label">วางข้อความออเดอร์ (เช็คทีละหลายรายการได้)</p>
     </div>
 
     <div class="preset-row">
       <span style="font-size:12px; color:var(--ink-soft); align-self:center; font-family:var(--font-mono);">ลองชุดตัวอย่าง:</span>
-      <button class="preset-chip" type="button" data-preset="multi">⚡ 3 ออเดอร์ (เสี่ยงสูง/เฝ้าระวัง/ปลอดภัย)</button>
-      <button class="preset-chip" type="button" data-preset="chat">💬 แชทลูกค้าทั่วไป</button>
+      <button class="preset-chip" type="button" data-preset="multi">3 ออเดอร์ (เสี่ยงสูง / เฝ้าระวัง / ปลอดภัย)</button>
+      <button class="preset-chip" type="button" data-preset="chat">แชทลูกค้าทั่วไป</button>
     </div>
 
     <textarea id="orderInput" placeholder="ตัวอย่าง:
@@ -69,7 +68,7 @@
 นายวิชัย มั่นคง 099-222-3344 สั่ง Facebook ยอด 490"></textarea>
 
     <div class="action-row">
-      <button class="btn-primary" id="checkBtn">🔍 ตรวจสอบความเสี่ยงด้วย AI</button>
+      <button class="btn-primary" id="checkBtn">ตรวจสอบความเสี่ยงด้วย AI</button>
       <button class="btn-ghost" id="clearOrderBtn" type="button">ล้างข้อความ</button>
     </div>
     <p class="status-line" id="statusLine"></p>
@@ -77,7 +76,7 @@
 
   <section class="results" id="results"></section>
   <div class="empty-state" id="emptyState">
-    ✨ ผลการวิเคราะห์และคำแนะนำการแพ็กสินค้าจะปรากฏที่นี่หลังกดตรวจสอบ
+    ผลการวิเคราะห์และคำแนะนำการแพ็กสินค้าจะปรากฏที่นี่หลังกดตรวจสอบ
   </div>
 
   <!-- เส้นคั่น -->
@@ -86,29 +85,29 @@
   <!-- ส่วนที่ 2: รายงานลูกค้าปฏิเสธรับสินค้า -->
   <div class="slip">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
-      <span class="network-chip" id="networkChip" style="margin-bottom:0;">📊 เครือข่ายสะสม 2 เบอร์</span>
-      <button class="toggle-btn" id="resetDbBtn" type="button" title="รีเซ็ตฐานข้อมูลตัวอย่างกลับเป็นค่าเริ่มต้น" style="font-size:11px; opacity:0.8;">↺ คืนค่าตัวอย่างเริ่มต้น</button>
+      <span class="network-chip" id="networkChip" style="margin-bottom:0;">เครือข่ายสะสม 2 เบอร์</span>
+      <button class="toggle-btn" id="resetDbBtn" type="button" title="รีเซ็ตฐานข้อมูลตัวอย่างกลับเป็นค่าเริ่มต้น" style="font-size:11px; opacity:0.8;">คืนค่าตัวอย่างเริ่มต้น</button>
     </div>
-    <p class="slip-label" style="margin-bottom:12px;">🚨 รายงานลูกค้าที่ปฏิเสธรับสินค้า / ตีกลับ</p>
+    <p class="slip-label" style="margin-bottom:12px;">รายงานลูกค้าที่ปฏิเสธรับสินค้า / ตีกลับ</p>
 
     <!-- AI ช่วยกรอก -->
     <div class="assist-box">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span style="font-family:var(--font-mono); font-size:11.5px; font-weight:700; color:var(--ink-soft);">
-          🤖 ผู้ช่วย AI ช่วยอ่านแชทและกรอกฟอร์มอัตโนมัติ:
+          ผู้ช่วย AI ช่วยอ่านแชทและกรอกฟอร์มอัตโนมัติ:
         </span>
       </div>
 
       <div class="preset-row" style="margin-bottom:8px;">
         <span style="font-size:11px; color:var(--ink-soft); align-self:center; font-family:var(--font-mono);">คลิกตัวอย่างแชทเดโม:</span>
-        <button class="preset-chip" type="button" data-chat-preset="shopee">📦 Shopee (ปิดเครื่องหนี 650฿)</button>
-        <button class="preset-chip" type="button" data-chat-preset="tiktok">📱 TikTok (สั่งเล่น ไม่รับ 1,290฿)</button>
-        <button class="preset-chip" type="button" data-chat-preset="line">💬 LINE (ปฏิเสธหน้าบ้าน 420฿)</button>
+        <button class="preset-chip" type="button" data-chat-preset="shopee">Shopee (ปิดเครื่องหนี 650฿)</button>
+        <button class="preset-chip" type="button" data-chat-preset="tiktok">TikTok (สั่งเล่น ไม่รับ 1,290฿)</button>
+        <button class="preset-chip" type="button" data-chat-preset="line">LINE (ปฏิเสธหน้าบ้าน 420฿)</button>
       </div>
 
       <div class="assist-row">
         <textarea id="assistInput" placeholder="วางข้อความแชทที่มี ชื่อ เบอร์โทร ยอดเงิน หรือเหตุผล เช่น 'ลูกค้าคุณปรียา เบอร์ 086-555-7788 ยอด 890 บาท จาก TikTok ขนส่งโทรแล้วตัดสาย ติดต่อไม่ได้'"></textarea>
-        <button class="btn-assist" id="assistBtn" type="button">✨ AI ช่วยกรอก</button>
+        <button class="btn-assist" id="assistBtn" type="button">AI ช่วยกรอก</button>
       </div>
 
       <div class="ai-summary-row" id="aiSummaryRow">
@@ -160,7 +159,7 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" id="reportBtn">💾 บันทึกรายงานเข้าระบบเครือข่าย</button>
+      <button class="btn-primary" id="reportBtn">บันทึกรายงานเข้าระบบเครือข่าย</button>
       <button class="btn-ghost" id="resetFormBtn" type="button">ล้างฟอร์ม</button>
     </div>
     <p class="status-line" id="reportStatus"></p>
@@ -168,7 +167,7 @@
   </div>
 
   <div class="pdpa-strip">
-    <span>🛡️ มาตรฐาน PDPA: จัดเก็บเฉพาะเบอร์โทรและสถิติประวัติความเสี่ยงเพื่อความปลอดภัยของข้อมูล</span>
+    <span>มาตรฐาน PDPA: จัดเก็บเฉพาะเบอร์โทรและสถิติประวัติความเสี่ยงเพื่อความปลอดภัยของข้อมูล</span>
   </div>
 
   <p class="footnote">

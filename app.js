@@ -1,7 +1,6 @@
 (function () {
   // DOM Elements
   const themeToggle = document.getElementById('themeToggle');
-  const maskToggle = document.getElementById('maskToggle');
   const orderInput = document.getElementById('orderInput');
   const checkBtn = document.getElementById('checkBtn');
   const clearOrderBtn = document.getElementById('clearOrderBtn');
@@ -28,7 +27,6 @@
   const resetDbBtn = document.getElementById('resetDbBtn');
 
   // State
-  let maskPhoneEnabled = false;
   let currentOrders = [];
 
   // Default Mock Risk DB
@@ -98,20 +96,10 @@
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     if (isDark) {
       document.documentElement.removeAttribute('data-theme');
-      themeToggle.textContent = '🌓 ธีม';
+      themeToggle.textContent = 'ธีม';
     } else {
       document.documentElement.setAttribute('data-theme', 'dark');
-      themeToggle.textContent = '☀️ สว่าง';
-    }
-  });
-
-  // PDPA Mask Toggle (Instant 0ms re-render)
-  maskToggle.addEventListener('click', () => {
-    maskPhoneEnabled = !maskPhoneEnabled;
-    maskToggle.textContent = maskPhoneEnabled ? '🔒 ซ่อนเบอร์ (PDPA): เปิด' : '🔒 ซ่อนเบอร์ (PDPA): ปิด';
-    maskToggle.style.color = maskPhoneEnabled ? 'var(--moss)' : '';
-    if (currentOrders.length > 0) {
-      renderAllCards();
+      themeToggle.textContent = 'โหมดสว่าง';
     }
   });
 
@@ -126,7 +114,7 @@
       if (currentOrders.length > 0) {
         renderAllCards();
       }
-      setReportStatus('↺ คืนค่าตัวอย่างเริ่มต้นเรียบร้อยแล้ว', false);
+      setReportStatus('คืนค่าตัวอย่างเริ่มต้นเรียบร้อยแล้ว', false);
       setTimeout(() => setReportStatus('', false), 2500);
     });
   }
@@ -147,7 +135,7 @@
       const type = e.target.getAttribute('data-chat-preset');
       if (CHAT_PRESETS[type]) {
         assistInput.value = CHAT_PRESETS[type];
-        setReportStatus('โหลดแชทตัวอย่างแล้ว กด "✨ AI ช่วยกรอก" ได้ทันที', false);
+        setReportStatus('โหลดแชทตัวอย่างแล้ว กด "AI ช่วยกรอก" ได้ทันที', false);
       }
     });
   });
@@ -181,7 +169,7 @@
 
   function updateNetworkChip() {
     const n = Object.keys(MOCK_DB).length;
-    networkChip.textContent = `📊 เครือข่ายสะสม ${n.toLocaleString('th-TH')} เบอร์`;
+    networkChip.textContent = `เครือข่ายสะสม ${n.toLocaleString('th-TH')} เบอร์`;
   }
   updateNetworkChip();
 
@@ -201,9 +189,6 @@
   function formatDisplayPhone(raw) {
     const clean = normalizePhone(raw);
     if (clean.length !== 10) return raw || 'ไม่ระบุ';
-    if (maskPhoneEnabled) {
-      return `${clean.slice(0, 3)}-xxx-${clean.slice(7)}`;
-    }
     return `${clean.slice(0, 3)}-${clean.slice(3, 6)}-${clean.slice(6)}`;
   }
 
@@ -228,12 +213,12 @@
 
   function recommendation(level) {
     if (level === "high") {
-      return "⚠️ <strong>ข้อแนะนำเร่งด่วน:</strong> ลูกค้ารายนี้มีประวัติตีกลับบ่อย ควรขอเก็บเงินมัดจำค่าส่ง ฿50-100 หรือให้โอนเงินเต็มจำนวนก่อนส่ง ห้ามส่ง COD โดยไม่คอนเฟิร์ม";
+      return "<strong>ข้อแนะนำเร่งด่วน:</strong> ลูกค้ารายนี้มีประวัติตีกลับบ่อย ควรขอเก็บเงินมัดจำค่าส่ง ฿50-100 หรือให้โอนเงินเต็มจำนวนก่อนส่ง ห้ามส่ง COD โดยไม่คอนเฟิร์ม";
     }
     if (level === "watch") {
-      return "👀 <strong>ข้อแนะนำ:</strong> โทรหรือส่งข้อความคอนเฟิร์มคำสั่งซื้อและที่อยู่ก่อนแพ็กสินค้า เพื่อป้องกันการสั่งเล่น";
+      return "<strong>ข้อแนะนำ:</strong> โทรหรือส่งข้อความคอนเฟิร์มคำสั่งซื้อและที่อยู่ก่อนแพ็กสินค้า เพื่อป้องกันการสั่งเล่น";
     }
-    return "✅ <strong>ข้อแนะนำ:</strong> ส่งสินค้าได้ตามขั้นตอนปกติ ยังไม่พบประวัติเสียหายในเครือข่าย";
+    return "<strong>ข้อแนะนำ:</strong> ส่งสินค้าได้ตามขั้นตอนปกติ ยังไม่พบประวัติเสียหายในเครือข่าย";
   }
 
   // NLP & Thai Heuristic Parser (Dual Engine: works flawlessly offline & with AI)
@@ -470,7 +455,7 @@
   checkBtn.addEventListener('click', async () => {
     const text = orderInput.value.trim();
     if (!text) {
-      setStatus('⚠️ กรุณาวางข้อความออเดอร์ก่อน แล้วค่อยกดตรวจสอบ', false);
+      setStatus('กรุณาวางข้อความออเดอร์ก่อน แล้วค่อยกดตรวจสอบ', false);
       return;
     }
 
@@ -534,12 +519,12 @@
   assistBtn.addEventListener('click', async () => {
     const text = assistInput.value.trim();
     if (!text) {
-      setReportStatus('⚠️ กรุณาวางข้อความแชทก่อน แล้วค่อยกดให้ AI ช่วยกรอก', false);
+      setReportStatus('กรุณาวางข้อความแชทก่อน แล้วค่อยกดให้ AI ช่วยกรอก', false);
       return;
     }
 
     assistBtn.disabled = true;
-    setReportStatus('🤖 AI กำลังอ่านแชทและแยกข้อมูล...', true);
+    setReportStatus('AI กำลังอ่านแชทและแยกข้อมูล...', true);
     aiSummaryRow.style.display = 'none';
     aiSummaryRow.innerHTML = '';
 
@@ -608,23 +593,23 @@ ${text}
 
         // Render AI summary chips
         const chips = [];
-        if (parsed.name) chips.push(`👤 ชื่อ: <strong>${escapeHtml(parsed.name)}</strong>`);
-        if (parsed.phone) chips.push(`📞 เบอร์: <strong>${escapeHtml(normalizePhone(parsed.phone))}</strong>`);
-        if (parsed.value) chips.push(`💰 ยอด: <strong>฿${Number(parsed.value).toLocaleString('th-TH')}</strong>`);
-        if (parsed.platform) chips.push(`🏷️ แพลตฟอร์ม: <strong>${escapeHtml(reportPlatform.value === '__other__' ? reportPlatformOther.value : reportPlatform.value)}</strong>`);
-        if (parsed.reason) chips.push(`⚠️ สาเหตุ: <strong>${escapeHtml(reportReason.value)}</strong>`);
+        if (parsed.name) chips.push(`ชื่อ: <strong>${escapeHtml(parsed.name)}</strong>`);
+        if (parsed.phone) chips.push(`เบอร์: <strong>${escapeHtml(normalizePhone(parsed.phone))}</strong>`);
+        if (parsed.value) chips.push(`ยอด: <strong>฿${Number(parsed.value).toLocaleString('th-TH')}</strong>`);
+        if (parsed.platform) chips.push(`แพลตฟอร์ม: <strong>${escapeHtml(reportPlatform.value === '__other__' ? reportPlatformOther.value : reportPlatform.value)}</strong>`);
+        if (parsed.reason) chips.push(`สาเหตุ: <strong>${escapeHtml(reportReason.value)}</strong>`);
 
         aiSummaryRow.innerHTML = chips.map(c => `<span class="ai-pill">${c}</span>`).join('');
         aiSummaryRow.style.display = 'flex';
 
-        setReportStatus('✨ AI กรอกข้อมูลให้ครบถ้วนแล้ว! ตรวจสอบแล้วกดบันทึกได้เลย', false);
+        setReportStatus('AI กรอกข้อมูลให้ครบถ้วนแล้ว ตรวจสอบแล้วกดบันทึกได้เลย', false);
 
       } else {
-        setReportStatus('⚠️ AI สกัดข้อมูลไม่พบ กรุณากรอกลงในช่องด้วยตนเอง', false);
+        setReportStatus('AI สกัดข้อมูลไม่พบ กรุณากรอกลงในช่องด้วยตนเอง', false);
       }
     } catch (err) {
       assistBtn.disabled = false;
-      setReportStatus('⚠️ เกิดข้อผิดพลาด กรุณากรอกเองได้เลย', false);
+      setReportStatus('เกิดข้อผิดพลาด กรุณากรอกเองได้เลย', false);
     }
   });
 
@@ -641,7 +626,7 @@ ${text}
     const reason = reportReason.value;
 
     if (phone.length !== 10) {
-      setReportStatus('⚠️ กรุณากรอกเบอร์โทรให้ครบ 10 หลัก (เช่น 0812345678)', false);
+      setReportStatus('กรุณากรอกเบอร์โทรให้ครบ 10 หลัก (เช่น 0812345678)', false);
       reportPhone.focus();
       return;
     }
@@ -683,7 +668,7 @@ ${text}
     const box = document.createElement('div');
     box.className = 'confirm-box';
     box.innerHTML = `
-      <strong>✅ บันทึกรายงานเข้าระบบเครือข่ายเรียบร้อย</strong>
+      <strong>บันทึกรายงานเข้าระบบเครือข่ายเรียบร้อย</strong>
       เบอร์ <strong>${escapeHtml(formatDisplayPhone(phone))}</strong> ${name ? ' (' + escapeHtml(name) + ')' : ''}
       · ช่องทาง: ${escapeHtml(platform)}
       · สาเหตุ: ${escapeHtml(reason)}
